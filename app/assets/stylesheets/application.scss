@@ -1,0 +1,56 @@
+@import "bulma/bulma";
+@import "navbar";
+
+h1 {
+  font-size: 54px;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 38px;
+}
+
+h4 {
+  font-size: 26px;
+}
+
+p {
+  font-size: 20px;
+  text-align: justify;
+  margin-bottom: 16px;
+}
+
+code {
+  font-size: 20px;
+}
+
+.wrap-code {
+  display: block;
+  white-space: pre-wrap;
+}
+
+.main-image {
+  width: 90%;
+}
+
+.logo-image {
+  width: 35%;
+}
+
+.css-image {
+  width: 40%;
+}
+
+@media screen and (min-device-width: 1000px) and (max-device-width: 1600px) {
+  .main-image {
+    width: 60%;
+  }
+
+  .logo-image {
+    width: 20%;
+  }
+
+  .css-image {
+    width: 25%;
+  }
+}
