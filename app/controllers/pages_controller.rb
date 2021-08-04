@@ -4,4 +4,6 @@ class PagesController < ApplicationController
   def css; end
 
   def html; end
+
+  def ruby; end
 end
