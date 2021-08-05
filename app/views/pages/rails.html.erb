@@ -1,0 +1,581 @@
+<div class="container has-text-centered mb-6">
+  <%= image_tag "rails-page/rails.svg", class: "guide-image mt-4" %>
+
+  <h1 class="mt-6">Учебное пособие по Ruby on Rails</h1>
+  <h2>Введение в фреймворк для построения веб-приложений</h2>
+</div>
+
+<div class="container has-text-centered mt-5">
+  <p>
+    <b>Rails</b> — это полноценный, многоуровневый фреймворк для построения веб-приложений, использующих
+    базы данных, который основан на архитектуре Модель-Представление-Контроллер (Model-View-Controller,
+    MVC). Динамичный AJAX-интерфейс, обработка запросов и выдача данных в контроллерах, предметная область,
+    отраженная в базе данных, — для всего этого Rails предоставляет однородную среду разработки на Ruby. Все,
+    что необходимо для начала — база данных и веб-сервер.
+  </p>
+
+  <p>
+    Rails отлично работает со многими веб-серверами и СУБД. В качестве веб-сервера рекомендуется
+    использовать Apache или nginx с модулем Phusion Passenger. Rails также можно разворачивать
+    используя Unicorn, Thin, Mongrel или FastCGI. В качестве СУБД можно использовать MySQL,
+    PostgreSQL, SQLite, Oracle, SQL Server и другие. Использовать Rails можно на практически
+    любой операционной системе, однако для развертывания мы рекомендуем системы семейства <code>*nix</code>.
+  </p>
+</div>
+
+<div class="container has-text-centered mt-6">
+  <h4>Создание приложения</h4>
+
+  <p class="mt-5">
+    Rails поставляется с рядом скриптов, названных генераторами, разработанных для облегчения жизни
+    разработчика, создавая все, что необходимо для начала работы над определенной задачей. Одним из
+    них является генератор нового приложения, предоставляющий вам основу приложения Rails, таким образом,
+    вам не нужно писать его самим.
+  </p>
+
+  <p>
+    Для использования этого генератора, откройте терминал, войдите в папку, в которой у вас есть права
+    на создание файлов и запустите:
+  </p>
+
+  <code>rails new blog</code>
+
+  <p class="mt-5">
+    Это создаст приложение на Rails с именем Blog в директории blog и установит гемы, зависимости от
+    которых упомянуты в <code>Gemfile</code> при использовании <code>bundle install</code>.
+  </p>
+
+  <article class="message is-link mt-5">
+    <div class="message-body">
+      <p>
+        Для того, чтобы посмотреть все возможные опции командной строки, которые принимает генератор
+        приложения на Rails, запустите <code>rails new --help</code>.
+      </p>
+    </div>
+  </article>
+
+  <p>
+    После того, как вы создали приложение blog, перейдите в его папку:
+  </p>
+
+  <code>cd blog</code>
+
+  <p class="mt-5">
+    В директории blog будет несколько автоматически сгенерированных файлов и папок, задающих структуру
+    приложения на Rails. Большая часть работы в этом самоучителе будет происходить в папке app, но
+    сейчас пробежимся по функциям каждой папки, которые создает Rails в новом приложении по умолчанию:
+  </p>
+
+  <table class="m-5">
+    <tr>
+      <th>Файл/Папка</th>
+      <th>Назначение</th>
+    </tr>
+    <tr>
+      <td>app/</td>
+      <td>
+        Содержит контроллеры, модели, вью, хелперы, рассыльщики, каналы, задания и ассеты вашего
+        приложения. Мы рассмотрим эту папку подробнее далее.
+      </td>
+    </tr>
+    <tr>
+      <td>bin/</td>
+      <td>
+        Содержит скрипты rails, которые стартуют ваше приложение, также директория может содержать
+        другие скрипты которые вы используете для настройки, обновления, деплоя или запуска.
+      </td>
+    </tr>
+    <tr>
+      <td>config/</td>
+      <td>
+        Содержит конфигурации маршрутов, базы данных вашего приложения, и т.д.
+      </td>
+    </tr>
+    <tr>
+      <td>config.ru</td>
+      <td>
+        Конфигурация Rack для серверов, основанных на Rack, используемых для запуска приложения.
+      </td>
+    </tr>
+    <tr>
+      <td>db/</td>
+      <td>
+        Содержит текущую схему вашей базы данных, а также миграции базы данных.
+      </td>
+    </tr>
+    <tr>
+      <td>Gemfile</td>
+      <td>
+        Эти файлы позволяют указать, какие зависимости от гемов нужны для вашего приложения на
+        Rails. Эти файлы используются гемом Bundler.
+      </td>
+    </tr>
+    <tr>
+      <td>lib/</td>
+      <td>Внешние модули для вашего приложения.</td>
+    </tr>
+    <tr>
+      <td>log/</td>
+      <td>Файлы логов приложения.</td>
+    </tr>
+    <tr>
+      <td>package.json</td>
+      <td>
+        Этот файл позволяет указать, какие зависимости npm необходимы для приложения Rails. Этот
+        файл используется Yarn
+      </td>
+    </tr>
+    <tr>
+      <td>public/</td>
+      <td>
+        Содержит статичные файлы и скомпилированные ассеты. Когда ваше приложение запущено, эта
+        директория будет представлена как есть.
+      </td>
+    </tr>
+    <tr>
+      <td>Rakefile</td>
+      <td>
+        Этот файл находит и загружает задачи, которые могут быть запущены в командной строке.
+        Определенная задача доступна во всех компонентах Rails.
+      </td>
+    </tr>
+    <tr>
+      <td>test/</td>
+      <td>
+        Юнит-тесты, фикстуры и прочий аппарат тестирования.
+      </td>
+    </tr>
+    <tr>
+      <td>tmp/</td>
+      <td>Временные файлы (такие как файлы кэша и pid)</td>
+    </tr>
+    <tr>
+      <td>vendor/</td>
+      <td>Место для кода сторонних разработчиков. В типичном приложении на Rails включает внешние гемы.</td>
+    </tr>
+    <tr>
+      <td>.ruby-version</td>
+      <td>Этот файл содержит дефолтную версию Ruby.</td>
+    </tr>
+  </table>
+</div>
+
+<div class="container has-text-centered mt-6">
+  <h4>Запуск веб-сервера</h4>
+
+  <p class="mt-4">
+    Фактически у вас уже есть функциональное приложение на Rails. Чтобы убедиться, нужно запустить
+    веб-сервер на вашей машине. Это можно осуществить, запустив следующую команду из директории
+    <code>blog</code>:
+  </p>
+
+  <code>bin/rails server</code>
+
+  <p class="mt-5">
+    Это запустит Puma, веб-сервер, распространяющийся с Rails по умолчанию. Чтобы увидеть приложение
+    в действии, откройте окно браузера и пройдите по адресу <b>http://localhost:3000</b>. Вы должны
+    увидеть дефолтную информационную страницу Rails:
+  </p>
+
+  <%= image_tag "rails-page/yay.png", class: "guide-image mt-5" %>
+
+  <p class="mt-5">
+    Когда захотите остановить веб-сервер, нажмите <code>Ctrl+C</code> в терминале, где он запущен. В среде development,
+    Rails в основном не требует остановки сервера; все изменения, которые Вы делаете в файлах, автоматически
+    подхватываются сервером.
+  </p>
+</div>
+
+<div class="container has-text-centered mt-6">
+  <h4>Скажите "Привет", Рельсы</h4>
+
+  <p class="mt-4">
+    Чтобы Rails сказал "Привет", нужно создать, как минимум, маршрут, контроллер с экшном и вью (представление).
+    Маршрут связывает запрос с экшном контроллера. Экшн контроллера выполняет необходимую работу для обработки
+    запроса и подготавливает необходимые данные для вью. Вью отображает данные в желаемом формате.
+  </p>
+
+  <p>
+    В терминах реализации: Маршруты это правила, написанные на Ruby DSL (предметно-ориентированном языке).
+    Контроллеры это классы Ruby, и их публичные классы это экшны. И вью это шаблоны, обычно написанные на
+    смеси HTML и Ruby.
+  </p>
+
+  <p>
+    Давайте начнем с добавления маршрута к нашему файлу маршрутов, <code>config/routes.rb</code>, в самом
+    верху блока <code>Rails.application.routes.draw</code>:
+  </p>
+
+  <div style="text-align: initial">
+    <code class="wrap-code">
+      Rails.application.routes.draw do
+        get "/articles", to: "articles#index"
+      end
+    </code>
+  </div>
+
+  <p class="mt-5">
+    Вышеприведенный маршрут объявляет, что запросы <code>GET /articles</code> связываются с экшном
+    <code>index</code> в <code>ArticlesController</code>.
+  </p>
+
+  <p>
+    Для создания <code>ArticlesController</code> и его экшна <code>index</code>, мы запустим генератор
+    контроллера (с опцией <code>--skip-routes</code>, так как у нас уже есть подходящий маршрут):
+  </p>
+
+  <code>bin/rails generate controller Articles index --skip-routes</code>
+
+  <p class="mt-5">Rails создаст несколько файлов.</p>
+
+  <div style="text-align: initial">
+    <code class="wrap-code">
+      create  app/controllers/articles_controller.rb
+      invoke  erb
+      create    app/views/articles
+      create    app/views/articles/index.html.erb
+      invoke  test_unit
+      create    test/controllers/articles_controller_test.rb
+      invoke  helper
+      create    app/helpers/articles_helper.rb
+      invoke    test_unit
+      invoke  assets
+      invoke    scss
+      create      app/assets/stylesheets/articles.scss
+    </code>
+  </div>
+
+  <p class="mt-5">
+    Наиболее важным из них является файл контроллера, <code>app/controllers/articles_controller.rb</code>.
+    Давайте посмотрим на него:
+  </p>
+
+  <div style="text-align: initial">
+    <code class="wrap-code">
+      class ArticlesController < ApplicationController
+        def index
+        end
+      end
+    </code>
+  </div>
+
+  <p class="mt-5">
+    Экшн index пустой. Когда экшн не рендерит явно вью (или иным способом создает отклик HTTP), Rails
+    автоматически отрендерит вью, соответствующую имени контроллера и экшну. Convention Over Configuration!
+    Вью располагаются в директории app/views. Таким образом, экшн index по умолчанию отрендерит
+    <code>app/views/articles/index.html.erb</code>.
+  </p>
+
+  <p>Давайте откроем файл app/views/articles/index.html.erb и заменим его содержимое на:</p>
+
+  <code>&lt;h1&gt;Hello, Rails!&lt;/h1&gt;</code>
+
+  <p class="mt-5">
+    Если до этого вы остановили веб сервер для запуска генератора контроллера, перезапустите его с
+    помощью <code>bin/rails server</code>. Теперь посетите
+    <a href="http://localhost:3000/articles" target="_blank">
+      http://localhost:3000/articles
+    </a>,
+    чтобы увидеть наш текст отображенным!
+  </p>
+</div>
+
+<div class="container has-text-centered mt-6">
+  <h4>Настройка домашней страницы приложения</h4>
+
+  <p class="mt-4">
+    В настоящий момент
+    <a href="http://localhost:3000/articles" target="_blank">
+    http://localhost:3000/articles
+    </a>
+    все еще отображает "Yay! You're on Rails!". Давайте также отобразим наш текст "Hello, Rails!"
+    на localhost:3000. Для этого мы добавим маршрут, соответствующий корневому пути нашего приложения
+    к соответствующему контроллеру и экшну.
+  </p>
+
+  <p>
+    Откройте <code>config/routes.rb</code> и добавьте следующий маршрут root вверху блока
+    <code>Rails.application.routes.draw:</code>
+  </p>
+
+  <div style="text-align: initial">
+    <code class="wrap-code">
+      Rails.application.routes.draw do
+        get "/articles", to: "articles#index"
+
+        root "articles#index"
+      end
+    </code>
+  </div>
+
+  <p class="mt-5">
+    Теперь можно видеть наш текст "Hello, Rails!" при посещении
+    <a href="http://localhost:3000/articles" target="_blank">
+      http://localhost:3000/articles
+    </a>,
+    что подтверждает то. что маршрут <code>root</code> также связан с экшном <code>index</code>
+    в <code>ArticlesController.</code>
+  </p>
+</div>
+
+<div class="container has-text-centered mt-6">
+  <h4>Генерация модели</h4>
+
+  <p class="mt-4">
+    <i>Модель</i> это класс Ruby, используемый для представления данных. Кроме этого, модели могут
+    взаимодействовать с базой данных приложения с помощью особенности Rails, называемой <i>Active Record</i>.
+  </p>
+
+  <p>Для определения модели используем генератор модели:</p>
+
+  <code>bin/rails generate model Article title:string body:text</code>
+
+  <article class="message is-link mt-5">
+    <div class="message-body">
+      <p>
+        Имена моделей в единственном числе, так как инициализированная модель представляет единственную
+        запись данных. Чтобы запомнить это соглашение, думайте о том, как вы хотели вызвать конструктор
+        модели: мы хотим писать <code>Article.new(...)</code>, а не <code>Articles.new(...)</code>.
+      </p>
+    </div>
+  </article>
+
+  <p class="mt-5">Это создаст несколько файлов:</p>
+
+  <div style="text-align: initial">
+    <code class="wrap-code">
+      invoke  active_record
+      create    db/migrate/&lt;timestamp&gt;_create_articles.rb
+      create    app/models/article.rb
+      invoke    test_unit
+      create      test/models/article_test.rb
+      create      test/fixtures/articles.yml
+    </code>
+  </div>
+
+  <p class="mt-5">
+    Два файла, на которых мы сфокусируемся, это файл миграции
+    (<code>db/migrate/&lt;timestamp&gt;_create_articles.rb</code>)
+    и файл модели (<code>app/models/article.rb</code>).
+  </p>
+</div>
+
+<div class="container has-text-centered mt-6">
+  <h4>Миграции базы данных</h4>
+
+  <p class="mt-4">
+    <i>Миграции</i> используются для изменения структуры базы данных приложения. В приложениях
+    Rails миграции написаны на Ruby, поэтому они могут быть не зависящими от базы данных.
+  </p>
+
+  <p>Давайте посмотрим на содержимое нового файла миграции:</p>
+
+  <div style="text-align: initial">
+    <code class="wrap-code">
+      class CreateArticles < ActiveRecord::Migration[7.0]
+        def change
+          create_table :articles do |t|
+            t.string :title
+            t.text :body
+
+            t.timestamps
+          end
+        end
+      end
+    </code>
+  </div>
+
+  <p class="mt-5">
+    Вызов <code>create_table</code> указывает, как должна быть сконструирована таблица
+    <code>articles</code>. По умолчанию метод <code>create_table</code> добавляет столбец
+    <code>id</code> в качестве автоматически увеличивающегося первичного ключа. Таким образом,
+    у первой записи в таблице будет <code>id</code> 1, у следующей записи <code>id</code> 2,
+    и так далее.
+  </p>
+
+  <p>
+    В блоке для <code>create_table</code> определены два столбца: <code>title</code> и <code>body</code>.
+    Они были добавлены генератором, так как мы включили их в команду генерации
+    (<code>bin/rails generate model Article title:string body:text</code>).
+  </p>
+
+  <p>
+    В последней строчке блока вызывается <code>t.timestamps</code>. Этот метод определяет два дополнительных столбца с именами created_at и updated_at. Как увидите, Rails позаботится о них. устанавливая значения при создании или обновлении объекта модели.
+  </p>
+
+  <p>Давайте запустим нашу миграцию с помощью следующей команды:</p>
+
+  <code>bin/rails db:migrate</code>
+
+  <p class="mt-5">Эта команда выведет, что таблица была создана:</p>
+
+  <div style="text-align: initial">
+    <code class="wrap-code">
+      ==  CreateArticles: migrating ===================================
+      -- create_table(:articles)
+        -> 0.0018s
+      ==  CreateArticles: migrated (0.0018s) ==========================
+    </code>
+  </div>
+
+  <p class="mt-5">Теперь мы можем взаимодействовать с этой таблицей с помощью нашей модели.</p>
+</div>
+
+<div class="container has-text-centered mt-6">
+  <h4>Использование модели для взаимодействия с базой данных</h4>
+
+  <p class="mt-4">
+    Чтобы поиграть немного с нашей моделью, мы собираемся воспользоваться особенностью Rails,
+    называемой консоль. Консоль это интерактивная среда программирования, похожая на <code>irb</code>,
+    но автоматически загружающая Rails и код нашего приложения.
+  </p>
+
+  <p>Давайте запустим консоль с помощью команды:</p>
+
+  <code>bin/rails console</code>
+
+  <p class="mt-5">Вы должны увидеть интерфейс <code>irb</code> наподобие:</p>
+
+  <code>irb(main):001:0&gt;</code>
+
+  <p class="mt-5">В этом интерфейсе можно инициализировать новый объект <code>Article</code>:</p>
+
+  <code>irb> article = Article.new(title: "Hello Rails", body: "I am on Rails!")</code>
+
+  <p class="mt-5">
+    Важно отметить, что что мы только инициализировали этот объект. Этот объект вообще
+    не сохранен в базе данных. В настоящий момент он доступен только в консоли. Чтобы
+    сохранить его в базу данных, нужно вызвать <code>save</code>:
+  </p>
+
+  <div style="text-align: initial">
+    <code class="wrap-code">
+      irb> article.save
+      (0.1ms)  begin transaction
+      Article Create (0.4ms)  INSERT INTO "articles" ("title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["title", "Hello Rails"], ["body", "I am on Rails!"], ["created_at", "2020-01-18 23:47:30.734416"], ["updated_at", "2020-01-18 23:47:30.734416"]]
+      (0.9ms)  commit transaction
+      => true
+    </code>
+  </div>
+
+  <p class="mt-5">
+    Вышеуказанный вывод показывает запрос базы данных <code>INSERT INTO "articles" ....</code> Это
+    показывает, что статья была вставлена в нашу таблицу. И если мы снова взглянем на объект
+    <code>article</code>, то увидим, что произошло нечто интересное:
+  </p>
+
+  <div style="text-align: initial">
+    <code class="wrap-code">
+      irb> article
+      => #&lt;Article id: 1, title: "Hello Rails", body: "I am on Rails!", created_at: "2020-01-18 23:47:30",
+              updated_at: "2020-01-18 23:47:30"&gt;
+    </code>
+  </div>
+
+  <p class="mt-5">
+    Теперь у объекта установлены атрибуты <code>id</code>, <code>created_at</code> и
+    <code>updated_at</code>. Rails сделал это, когда мы сохранили объект.
+  </p>
+
+  <p>
+    Когда мы хотим извлечь эту статью из базы данных, можно вызвать find на модели и передать
+    <code>id</code> в качестве аргумента:
+  </p>
+
+  <div style="text-align: initial">
+    <code class="wrap-code">
+      irb> Article.find(1)
+      => #&lt;Article id: 1, title: "Hello Rails", body: "I am on Rails!", created_at: "2020-01-18 23:47:30",
+              updated_at: "2020-01-18 23:47:30"&gt;
+    </code>
+  </div>
+</div>
+
+<div class="container has-text-centered mt-6">
+  <h4>Отображение списка статей</h4>
+
+  <p class="mt-4">
+    Давайте вернемся к нашему контроллеру в <code>app/controllers/articles_controller.rb</code> и изменим
+    экшн <code>index</code>, чтобы он извлекал все статьи из базы данных:
+  </p>
+
+  <div style="text-align: initial">
+    <code class="wrap-code">
+      class ArticlesController < ApplicationController
+        def index
+          @articles = Article.all
+        end
+      end
+    </code>
+  </div>
+
+  <p class="mt-5">
+    К переменным экземпляра контроллера можно получить доступ из вью. Это означает, что мы можем
+    ссылаться на <code>@articles</code> в <code>app/views/articles/index.html.erb</code>. Давайте
+    откроем этот файл и заменим его содержимое на:
+  </p>
+
+  <div style="text-align: initial">
+    <code class="wrap-code">
+      &lt;h1&gt;Articles&lt;/h1&gt;
+
+      &lt;ul&gt;
+        &lt;% @articles.each do |article| %&gt;
+          &lt;li&gt;
+            &lt;%= article.title %&gt;
+          &lt;/li&gt;
+        &lt;% end %&gt;
+      &lt;/ul&gt;
+    </code>
+  </div>
+
+  <p class="mt-5">
+    Вышеприведенный код это смесь HTML и ERB. ERB это система шаблонирования, которая вычисляет код
+    Ruby, вложенный в документ. Тут мы видим два типа тегов ERB: <code>&lt;% %&gt;</code> и
+    <code>&lt;%= %&gt;</code>. Тег <code>&lt;% %&gt;</code> означает "вычислить заключенный код Ruby".
+    Тег <code>&lt;%= %&gt;</code> означает "вычислить заключенный код Ruby и вывести значение, которое
+    он возвратит". Все, что можно написать в обычной программе на Ruby, можно вложить в эти теги ERB,
+    хотя обычно лучше сохранять содержимое тегов ERB кратким, для читаемости.
+  </p>
+
+  <p>
+    Так как мы не хотим вывести значение, возвращаемое <code>@articles.each</code>, мы заключили этот
+    код в <code>&lt;% %&gt;</code>. Но, поскольку мы хотим вывести значение, возвращаемое
+    <code>article.title</code> (для каждой статьи), мы заключили этот код в <code>&lt;%= %&gt;</code>.
+  </p>
+
+  <p>
+    Окончательный результат можно увидеть, посетив <%= link_to 'http://localhost:3000',
+                                                               'http://localhost:3000',
+                                                               target: '_blank' %>.
+    (Помните, что <code>bin/rails server</code> должен быть запущен!) Вот что произойдет при этом:
+  </p>
+
+  <ul>
+    <li>Браузер сделает запрос: <code>GET http://localhost:3000.</code></li>
+    <li>Наше приложение Rails получит этот запрос.</li>
+    <li>Роутер Rails свяжет корневой маршрут с экшном <code>index</code> в <code>ArticlesController</code>.</li>
+    <li>Экшн <code>index</code> использует модель <code>Article</code> для извлечения всех статей из базы данных.</li>
+    <li>Rails автоматически отрендерит вью <code>app/views/articles/index.html.erb</code>.</li>
+    <li>Вычисляется код ERB во вью для вывода HTML.</li>
+    <li>Сервер отправит отклик, содержащий HTML, обратно браузеру.</li>
+  </ul>
+
+  <p class="mt-5 mb-6">
+    Мы соединили все кусочки MVC вместе, и теперь у нас есть наш первый экшн контроллера!
+  </p>
+</div>
+
+<div class="container has-text-centered mt-5 mb-6">
+  <h4>Полезные ссылки:</h4>
+
+  <div class="useful-links">
+    <a href="http://rusrails.ru" target="_blank">
+      Rails для начинающих
+    </a>
+
+    <a href="https://www.codecademy.com/learn/learn-rails" target="_blank">
+      Интерактивный курс по Rails
+    </a>
+  </div>
+</div>
