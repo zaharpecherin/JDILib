@@ -8,4 +8,6 @@ class PagesController < ApplicationController
   def html; end
   def ruby; end
   def rails; end
+  def sql; end
+
 end
